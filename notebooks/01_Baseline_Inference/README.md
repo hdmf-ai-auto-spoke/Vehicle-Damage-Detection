@@ -37,7 +37,7 @@
 
 | Background (배경) |
 | :---: |
-| ![Background](../results/01_detection/sample_bg.png) |
+| ![Background](./results/01_detection/sample_bg.png) |
 > **Result:** (여기에 결과 작성, 예: 벤치를 차량으로 오인하는 경우가 있었으나 Confidence 0.5 이상에서 제거됨 등)
 
 ---
