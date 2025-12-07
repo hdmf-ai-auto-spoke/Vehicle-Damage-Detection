@@ -4,8 +4,8 @@
 AI-Hub의 파손 차량 데이터와 COCO 데이터셋의 정상 차량/배경 이미지를 결합하여, **파손 탐지**뿐만 아니라 **오탐지(False Positive) 방지**까지 고려한 데이터셋을 설계
 
 #### Objective (목표)
-1.  **High Quality Data:** 원본 해상도를 유지하기 위해 리사이징 없이 수집 (`Dataset_No_Resizing`).
-2.  **Balanced Composition:** * **파손 차량:** 파손 유형 학습.
+1.  **High Quality Data:** 원본 해상도를 유지하기 위해 리사이징 없이 수집
+2.  **Balanced Composition:**  **파손 차량:** 파손 유형 학습.
     * **정상 차량:** 파손되지 않은 일반 차량을 구분하기 위해 추가.
     * **배경 이미지:** 차량이 아닌 물체(벤치, 신호등 등)를 차량으로 오인하지 않도록 학습(Negative Sample).
 3.  **Quality Control:** 객체가 너무 작으면 학습에 방해가 되므로, 전체 이미지 면적의 **5% 이상**인 차량만 필터링하여 수집.
