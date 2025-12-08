@@ -67,34 +67,27 @@
 | **Baseline (pre-trained)** |Vehicle| 0.98 | 0.85 | 0.91 | |
 | **Fine-tuned. ver1.0** |Non-Vehicle| 0.73 | 0.98 | 0.84 |  |
 | **Fine-tuned. ver1.0** |Vehicle| 0.99 | 0.84 | 0.91 | |
+| **Fine-tuned. ver2.0** |Non-Vehicle| 0.97 | 0.95 | 0.96 |  |
+| **Fine-tuned. ver2.0** |Vehicle| 0.98 | 0.99 | 0.98 | |
 
 ### 💡 Findings
-* fine-tuning을 진행했음에도 Accuracy는 오히려 하향하였고, 전반적인 성능은 pre-trained 모델과 차이가 없음
+* fine-tuning을 통해 Accuracy는 비약적으로 상승(88.71% > 97.45%)하였고, 특히 FN는 줄고, TP가 상승하였다.
 
-## 원인 추정
-- 가장 유력한 원인은 학습 데이터 간의 "정답 기준"이 서로 다르기 때문일 가능성
+## 원인 추정(1st 문제점 해결 여부)
+- fine-tuning 1st 모델의 성능이 향상하지 못 했던 원인은 **학습 데이터 간의 "정답 기준"이 서로 다르기 때문**일 가능성으로 추정
  - Damaged 데이터 (JSON 기반):
     - JSON에 있던 bbox가 **차량 전체**가 아니라 **스크래치 등 파손된 부위**만 감싸고 있었을 확률이 높음.
  - Normal 데이터 (Auto-labeling):
     - YOLO가 자동으로 라벨링했으므로 **차량 전체**를 잡았음
    
-|  damaged | normal |
+|  damaged1 | damaged2 |
 | :---: | :---: |
-| ![FN_1](./results/01_detection/sample_damaged.png) | ![FN2](./results/01_detection/sample_nomal.png) |
+| ![FN_1](./results/01_detection/sample_damaged.png) | ![FN2](./results/01_detection/sample_damaged2.png) |
 
 ### 💡 Findings
-**데이터의 불일치.Inconsistency**가 성능 저하의 주원인
- - Normal: "차량 전체" 학습
- - Damaged: "파손된 일부분(문짝, 바퀴 등)"만 학습
- - 결과: 모델은 "전체를 봐야 차인지, 부분만 봐도 차인지" 혼동
+** 학습 데이터 간의 정답 기준이 서로 다른 문제점을 하이브리드 라벨링 전략으로 개선 **
+ - GT : 파손된 일부만 labeling
+ - Predicted : 전체 차량 향상을 찾음
 
 ## 📝 Conclusion 
 * **결론:** Fine-tuning을 진행했지만 성능의 차이가 없음. 그 이유는 damaged와 normal의 labeling 데이터의 불일치로 추정됨. damaged의 라벨의 bbox 좌표를 YOLO 포맷으로 변환했고, normal은 YOLO-AUTO LABELING으로 차량 전체를 학습했기 때문
-
-## Next Step  
-**하이브리드 라벨링 전략.Hybrid Labeling Strategy**
-* 1단계 (우선순위): Auto-Labeling (YOLOv8x)
-  - 일단 Pre-trained 모델로 **차량 전체 형상**을 찾음
-* 2단계 (Fallback): JSON 라벨 활용
-  - 만약 모델이 너무 확대된(Zoom-in) 이미지라 차량을 못 찾으면(Empty), 그때 **JSON의 파손 부위 좌표**를 가져옴
-  - 이유: "못 찾았다고 빈 파일(Background)"로 두지 않고, Damaged 폴더에 부분만이라도 '차량'이라고 학습습
