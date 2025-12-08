@@ -57,18 +57,21 @@
 | **Fine-tuned. ver1.0** |88.27%| 20.60 ms/장 | 48.55 FPS |L4|196 | 23 | freeze10 + epoch 50 |
 | **Fine-tuned. ver2.0** |97.45%| 20.12 ms/장 | 49.70 FPS |L4|196 | 5 | ver1.0 + hybrid labeling |
 
+### 💡 Findings
+* fine-tuning을 통해 Accuracy는 비약적으로 상승(88.71% > 97.45%)하였고, 특히 FN는 줄고, TP가 상승하였다.
+
 | **Baseline (pre-trained)** | **Fine-tuned. ver1.0** | **Fine-tuned. ver2.0** |
 | :---: | :---: | :---: |
 | ![Baseline](./results/01_detection/confusion_matrix_010.png) | ![Fine-tuned](./results/01_detection/confusion_matrix_fine_tuning_1st.png) | ![Fine-tuned2](./results/01_detection/confusion_matrix_fine_tuning_2nd.png) |
 
-| Model | Class | Precision | Recall | f1 | 비고 |
-| :---: | :---: | :---: | :---: | :--- | :--- |
-| **Baseline (pre-trained)** |Non-Vehicle| 0.74 | 0.96 | 0.84 |  |
-| **Baseline (pre-trained)** |Vehicle| 0.98 | 0.85 | 0.91 | |
-| **Fine-tuned. ver1.0** |Non-Vehicle| 0.73 | 0.98 | 0.84 |  |
-| **Fine-tuned. ver1.0** |Vehicle| 0.99 | 0.84 | 0.91 | |
-| **Fine-tuned. ver2.0** |Non-Vehicle| 0.97 | 0.95 | 0.96 |  |
-| **Fine-tuned. ver2.0** |Vehicle| 0.98 | 0.99 | 0.98 | |
+| Model | Class | Precision | Recall | f1 | 
+| :---: | :---: | :---: | :---: | :--- | 
+| **Baseline (pre-trained)** |Non-Vehicle| 0.74 | 0.96 | 0.84 |  
+| **Baseline (pre-trained)** |Vehicle| 0.98 | 0.85 | 0.91 | 
+| **Fine-tuned. ver1.0** |Non-Vehicle| 0.73 | 0.98 | 0.84 |  
+| **Fine-tuned. ver1.0** |Vehicle| 0.99 | 0.84 | 0.91 | 
+| **Fine-tuned. ver2.0** |Non-Vehicle| 0.97 | 0.95 | 0.96 |
+| **Fine-tuned. ver2.0** |Vehicle| 0.98 | 0.99 | 0.98 | 
 
 | **model results** | 
 | :---: | 
@@ -76,33 +79,8 @@
 
 | **valid sample** | 
 | :---: | 
-| ![Baseline](./results/02_train_results/val_batch0_pred.png) | 
-
-
-### 💡 Findings
-* fine-tuning을 통해 Accuracy는 비약적으로 상승(88.71% > 97.45%)하였고, 특히 FN는 줄고, TP가 상승하였다.
-
-
-
-
-
-
+| ![valid sample](./results/02_train_results/val_batch0_pred.jpg) | 
 
 ## 원인 추정(1st 문제점 해결 여부)
 - fine-tuning 1st 모델의 성능이 향상하지 못 했던 원인은 **학습 데이터 간의 "정답 기준"이 서로 다르기 때문**일 가능성으로 추정
- - Damaged 데이터 (JSON 기반):
-    - JSON에 있던 bbox가 **차량 전체**가 아니라 **스크래치 등 파손된 부위**만 감싸고 있었을 확률이 높음.
- - Normal 데이터 (Auto-labeling):
-    - YOLO가 자동으로 라벨링했으므로 **차량 전체**를 잡았음
-   
-|  damaged1 | damaged2 |
-| :---: | :---: |
-| ![FN_1](./results/01_detection/sample_damaged.png) | ![FN2](./results/01_detection/sample_damaged2.png) |
-
-### 💡 Findings
-- 학습 데이터 간의 정답 기준이 서로 다른 문제점을 **하이브리드 라벨링 전략**으로 개선확인
-  - GT : 파손된 일부만 labeling
-  - Predicted : 전체 차량 향상을 찾음
-
-## 📝 Conclusion 
-* **결론:** Fine-tuning을 진행했지만 성능의 차이가 없음. 그 이유는 damaged와 normal의 labeling 데이터의 불일치로 추정됨. damaged의 라벨의 bbox 좌표를 YOLO 포맷으로 변환했고, normal은 YOLO-AUTO LABELING으로 차량 전체를 학습했기 때문
+ - Damaged 데성
