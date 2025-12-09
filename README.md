@@ -2,6 +2,9 @@
 
 딥러닝을 활용한 차량 파손 탐지 및 분류 프로젝트 스터디
 
+## theory
+
+
 ## Project Roadmap & Study Log
 
 | Stage | Topic | Model | Status | Report |
