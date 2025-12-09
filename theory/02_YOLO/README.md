@@ -14,9 +14,15 @@
  
 ![yolov1_1](./images/yolo_v1_1.jpg)
 
+#### [YOLO bounding box + confidence socre]
+
 ![yolov1_bounding box](./images/yolo_v2_2.jpg)
 
-![yolov1](./images/yolo_v1_2.jpg)
+#### [YOLO v1 Architecture]
+
+![yolo v1 Architecture](./images/yolo_v1_2.jpg)
+
+#### [YOLO v1~v3]
 
 ![yolo_history](./images/yolo_v1_3.jpg)
 
@@ -33,3 +39,8 @@ v1의 단점(낮은 재현율, 부정확한 위치)을 보완하기 위해 나�
     * v2는 미리 정의된 '앵커 박스(Anchor Box)'를 기준으로 **오프셋(Offset)**만 예측하여 학습 안정화.
 2.  **Batch Normalization:** 모든 레이어에 BN을 추가하여 mAP 2% 향상.
 3.  **High Resolution Classifier:** 학습 시 입력 해상도를 높여 작은 물체 탐지 성능 개선.
+
+4.  #### [YOLO v2]
+
+![yolo_v2](./images/yolo_v2_1.jpg)
+
