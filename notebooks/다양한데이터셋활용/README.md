@@ -14,6 +14,9 @@
 # **2주차: 차량파손여부**
 
 ## 1.1주차때 학습했던 Resnet18 모델의 성능 추가 검증
+
+
+
 - 1주차에서 주어진 데이터셋으로 개발된 모델(Resnet18)의 성능을 좀 더 구체적으로 확인하기 위해 Kaggle에서 구한 데이터셋(정상차량, 파손차량)을 활용하여 테스트
 - 정상차량 920개 중 612개를 정상차량으로 판단(308개는 파손으로 잘못 탐지) -> Accuracy: 0.6652(612/920)
 - 파손차량 920개 중 524개를 파손차량으로 판단(396개는 정상으로 잘못 탐지) -> Accuracy: 0.5696(524/920)
@@ -28,6 +31,13 @@
 
 출처: https://www.kaggle.com/datasets/anujms/car-damage-detection
 
+[kaggle dataset과 현재 study 데이터셋)
+1.kaggle dataset
+![kaggle_datasets](notebooks/다양한데이터셋활용/week2_image1.png)
+
+2.study dataset
+![kaggle_datasets](notebooks/다양한데이터셋활용/week2_image2.png)
+
 ## 2.Kaggle Dataset으로 모델 학습
 - Kaggle의 (Car damage detection) Dataset으로 차량파손여부를 분류하는 모델을 학습해 보았음(Resnet18 Pretrained model 활용)
 - Dataset 구조(Train: 정상 920, 파손: 920, Val: 정상 320, 파손 320)
@@ -37,10 +47,11 @@ Confusion Matrix (rows=true, cols=pred):\
  [[222 /  8]\
  [ 10 / 220]]
 
- ※ 모델 경로
+
+ ※ 모델 경로(google drive)
  ./(share)HDMF_AUTO_SPOKE/SUBJECT/WEEK2_CAR_DAMAGE_DETECTION/JR/01.Model/resnet18_damage_vs_whole_best.pth
 
- ※ 코드 경로
+ ※ 코드
  ./(share)HDMF_AUTO_SPOKE/SUBJECT/WEEK2_CAR_DAMAGE_DETECTION/JR/02.Code/(25.12.19) Damaged_Detection_Modeling(with different datasets).ipynb
 
  ### 2-1. Kaggle Dataset으로 만든 모델을 Study Dataset으로 재검증
@@ -94,4 +105,3 @@ Accuracy: 0.5696\
 F1 (pos=damage): 0.6963
 
 ※ 코드경로: (share)HDMF_AUTO_SPOKE/SUBJECT/WEEK2_CAR_DAMAGE_DETECTION/JR/02.Code/(25.12.24) Damaged_Detection_Modeling(with different datasets)_v2_test_w_kaggle_testdata.ipynb
-
