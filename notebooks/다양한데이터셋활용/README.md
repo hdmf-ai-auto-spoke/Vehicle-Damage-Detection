@@ -31,12 +31,12 @@
 
 출처: https://www.kaggle.com/datasets/anujms/car-damage-detection
 
-[kaggle dataset과 현재 study 데이터셋)
-1.kaggle dataset
-![kaggle_datasets](notebooks/다양한데이터셋활용/week2_image1.png)
+[kaggle dataset과 현재 study 데이터셋)\
+1.kaggle dataset\
+![kaggle_datasets](./week2_image1.png)
 
-2.study dataset
-![kaggle_datasets](notebooks/다양한데이터셋활용/week2_image2.png)
+2.study dataset\
+![kaggle_datasets](./week2_image2.png)
 
 ## 2.Kaggle Dataset으로 모델 학습
 - Kaggle의 (Car damage detection) Dataset으로 차량파손여부를 분류하는 모델을 학습해 보았음(Resnet18 Pretrained model 활용)
